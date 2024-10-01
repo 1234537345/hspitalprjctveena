@@ -59,11 +59,7 @@
 <body>
     <div class="container" style="margin-top:10%">
         <h1>Admin Login</h1>
-        {% if messages %}
-            {% for message in messages %}
-                <div class="error">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
+
         <form method="POST">
             {% csrf_token %}  <!-- Include CSRF token for security -->
             <label for="username">Username</label>

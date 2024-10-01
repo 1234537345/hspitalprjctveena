@@ -284,17 +284,18 @@ def patient_list(request):
 
 
 def update_patient_view(request, pk):
-    patient = get_object_or_404(Patient, id=pk)
+    patient = get_object_or_404(Patient, id=pk)  # Fetch the patient object
 
     if request.method == 'POST':
-        form = PatientForm(request.POST, instance=patient)
-        if form.is_valid():
-            form.save()
-            return redirect('patient-list')
+        form = PatientForm(request.POST, instance=patient)  # Bind the form with POST data
+        if form.is_valid():  # Validate the form
+            form.save()  # Save the updated patient data
+            return redirect('patient-list')  # Redirect to the patient list after saving
     else:
-        form = PatientForm(instance=patient)
+        form = PatientForm(instance=patient)  # Prepopulate the form with existing data
 
     return render(request, 'update_patient.html', {'form': form, 'patient': patient})
+
 
 def delete_patient_view(request, pk):
     patient = get_object_or_404(Patient, id=pk)
@@ -322,20 +323,24 @@ def doctor_list(request):
     doctors = Doctor.objects.all()
     return render(request, 'admin-doctor_list.html', {'doctors': doctors})
 
-def update_doctor_view(request, pk):
-    doctor = get_object_or_404(Doctor, id=pk)
+
+def update_doctor_view(request, doctor_id):
+    doctor = get_object_or_404(Doctor, id=doctor_id)
     departments = Department.objects.all()
 
     if request.method == 'POST':
-        form = DoctorForm(request.POST, instance=doctor)
-        if form.is_valid():
-            form.save()
-            return redirect('doctor-list')
-    else:
-        form = DoctorForm(instance=doctor)
+        # Update the doctor instance
+        doctor.name = request.POST['name']
+        doctor.departments_id = request.POST['departments']
+        doctor.address = request.POST.get('address', doctor.address)  # Use existing value if not provided
+        doctor.mobile = request.POST['mobile']
+        doctor.email = request.POST['email']
+        doctor.specialization = request.POST.get('specialization', doctor.specialization)  # Use existing value
+        doctor.experience = request.POST['experience']
+        doctor.save()
+        return redirect('doctor-list')
 
-    return render(request, 'admin-update_doctor.html', {'form': form, 'doctor': doctor, 'departments': departments})
-
+    return render(request, 'admin-update_doctor.html', {'doctor': doctor, 'departments': departments})
 def delete_doctor_view(request, pk):
     doctor = get_object_or_404(Doctor, id=pk)
     doctor.delete()

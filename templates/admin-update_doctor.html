@@ -59,18 +59,17 @@
         </div>
 
         <div class="mb-3 row">
-  <label for="departments" class="col-sm-3 col-form-label">Department</label>
-  <div class="col-sm-9">
-    <select name="departments" id="departments" class="form-select" required>
-      {% for department in departments %}
-        <option value="{{ department.id }}" {% if department.id == doctor.departments.id %}selected{% endif %}>
-          {{ department.departments }}
-        </option>
-      {% endfor %}
-    </select>
-  </div>
-</div>
-
+            <label for="departments" class="col-sm-3 col-form-label">Department</label>
+            <div class="col-sm-9">
+                <select name="departments" id="departments" class="form-select" required>
+                    {% for department in departments %}
+                        <option value="{{ department.id }}" {% if department.id == doctor.departments.id %}selected{% endif %}>
+                            {{ department.departments }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
 
         <div class="mb-3 row">
             <label for="address" class="col-sm-3 col-form-label">Address</label>
