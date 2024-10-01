@@ -77,14 +77,8 @@ WSGI_APPLICATION = 'hspitalproject1.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        #'NAME': BASE_DIR / 'db.sqlite3',
-        'NAME': 'medical_database3',
-        'USER':'root',
-        'PASSWORD':'',
-        'HOST':'LOCALHOST',
-        'PORT':'3306'
-
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
